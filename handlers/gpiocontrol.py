@@ -5,7 +5,7 @@ from tornado import gen
 
 from helpers import GPIOHelper
 
-gpio = GPIOHelper
+gpio = GPIOHelper()
 
 
 class GPIOControlsHandler(BaseHandler):

@@ -5,7 +5,7 @@ import tornado.httpclient
 import tornado.web
 from ConfigParser import SafeConfigParser
 
-from lib import web_mixins
+# from lib import web_mixins
 from concurrent.futures import ThreadPoolExecutor
 
 config = SafeConfigParser()
@@ -25,7 +25,8 @@ def require_shared_secret(f):
     return decorated
 
 
-class BaseHandler(tornado.web.RequestHandler, web_mixins.ApiMixin):
+# class BaseHandler(tornado.web.RequestHandler, web_mixins.ApiMixin):
+class BaseHandler(tornado.web.RequestHandler):
     '''Base request handler.
 
     Adds a some convenience methods for writing json and a standard

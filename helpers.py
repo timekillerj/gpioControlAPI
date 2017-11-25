@@ -31,8 +31,8 @@ class GPIOHelper():
                 self.input_pins.remove(pin)
             if pin not in self.output_pins:
                 self.output_pins.append(pin)
-        except:
-            logging.error("Error setting {} as OUTPUT with state {}".format(pin, state))
+        except Exception as e:
+            logging.error("Error setting {} as OUTPUT with state {}: {}".format(pin, state, e))
 
     def set_pin_input(self, pin):
         try:
@@ -41,8 +41,8 @@ class GPIOHelper():
                 self.output_pins.remove(pin)
             if pin not in self.input_pins:
                 self.input_pins.append(pin)
-        except:
-            logging.error("Error setting {} as INPUT".format(pin))
+        except Exception as e:
+            logging.error("Error setting {} as INPUT: {}".format(pin, e))
 
     def read_output_pins(self):
         output_pins = {}

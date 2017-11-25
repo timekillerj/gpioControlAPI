@@ -19,3 +19,10 @@ class GPIOControlsHandler(BaseHandler):
             logging.error("Error reading pin states: {}".format(e))
             raise tornado.web.HTTPError(500, 'Error reading pin states: {}'.format(e))
         self.api_response(gpio_pins)
+
+
+class GPIOControlHandler(BaseHandler):
+    @require_shared_secret
+    @gen.coroutine
+    def get(self):
+        pass

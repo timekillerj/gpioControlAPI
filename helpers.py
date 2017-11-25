@@ -10,8 +10,8 @@ config.read('config.ini')
 
 class GPIOHelper():
     def __init__(self):
-        self.output_pins = config.get('gpio', 'output_pins')
-        self.input_pins = config.get('gpio', 'input_pins')
+        self.output_pins = config.get('gpio', 'output_pins').split(',')
+        self.input_pins = config.get('gpio', 'input_pins').split(',')
         if config.get('gpio', 'mode') == "BCM":
             GPIO.setmode(GPIO.BCM)
         else:

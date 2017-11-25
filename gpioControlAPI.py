@@ -35,7 +35,7 @@ class Application(tornado.web.Application):
 if __name__ == '__main__':
     tornado.options.parse_command_line()
 
-    port = config.get('main', 'port')
+    port = int(config.get('main', 'port'))
     address = '0.0.0.0'
     logging.info('starting gpiocontrol on %s:%d', address, port)
 

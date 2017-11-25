@@ -26,7 +26,7 @@ class GPIOHelper():
 
     def set_pin_output(self, pin, state=GPIO.LOW):
         try:
-            GPIO.setup(pin, GPIO.OUT, initial=state)
+            GPIO.setup(int(pin), GPIO.OUT, initial=state)
             if pin in self.input_pins:
                 self.input_pins.remove(pin)
             if pin not in self.output_pins:
@@ -36,7 +36,7 @@ class GPIOHelper():
 
     def set_pin_input(self, pin):
         try:
-            GPIO.setup(pin, GPIO.IN)
+            GPIO.setup(int(pin), GPIO.IN)
             if pin in self.output_pins:
                 self.output_pins.remove(pin)
             if pin not in self.input_pins:

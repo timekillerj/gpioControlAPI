@@ -1,22 +1,18 @@
 import RPi.GPIO as GPIO
 import logging
 
-from ConfigParser import SafeConfigParser
-
-
-config = SafeConfigParser()
-config.read('config.json')
+from config import config
 
 
 class GPIOHelper():
     def __init__(self, module='gpio'):
-        self.output_pins = config.get(module, 'output_pins').split(',')
-        self.input_pins = config.get(module, 'input_pins').split(',')
+        self.output_pins = config.get(module, {}).get('output_pins').split(',')
+        self.input_pins = config.get(module, {}).get('input_pins').split(',')
 
         if not self.output_pins and not self.input_pins:
             return False
 
-        if config.get(module, 'mode') == "BCM":
+        if config.get(module, {}).get('mode') == "BCM":
             GPIO.setmode(GPIO.BCM)
         else:
             GPIO.setmode(GPIO.BOARD)

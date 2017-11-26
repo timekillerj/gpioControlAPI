@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 import logging
 
-from ConfigParser import SafeConfigParser
 import tornado
 import tornado.options
 import tornado.web
 
 from handlers import gpiocontrol
-
-
-config = SafeConfigParser()
-config.read('config.json')
+from config import config
 
 
 class HealthHandler(tornado.web.RequestHandler):
@@ -21,7 +17,7 @@ class HealthHandler(tornado.web.RequestHandler):
 class Application(tornado.web.Application):
     def __init__(self):
         app_settings = {
-            'debug': config.get('main', 'debug'),
+            'debug': config.get('main', {}).get('debug'),
         }
 
         app_handlers = [
@@ -35,7 +31,7 @@ class Application(tornado.web.Application):
 if __name__ == '__main__':
     tornado.options.parse_command_line()
 
-    port = int(config.get('main', 'port'))
+    port = int(config.get('main', {}).get('port'))
     address = '0.0.0.0'
     logging.info('starting gpiocontrol on %s:%d', address, port)
 

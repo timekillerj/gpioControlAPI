@@ -3,12 +3,9 @@ import json
 import logging
 import tornado.httpclient
 import tornado.web
-from ConfigParser import SafeConfigParser
 
 from concurrent.futures import ThreadPoolExecutor
-
-config = SafeConfigParser()
-config.read('config.json')
+from config import config
 
 
 def require_shared_secret(f):
@@ -17,7 +14,7 @@ def require_shared_secret(f):
         if not shared_secret:
             logging.info('Request Missing shared_secret')
             raise tornado.web.HTTPError(401, 'MISSING_SHARED_SECRET')
-        if shared_secret != config.get('main', 'shared_secret'):
+        if shared_secret != config.get('main', {}).get('shared_secret'):
             logging.error('Invalid Shared Secret')
             raise tornado.web.HTTPError(403, 'INVALID_SHARED_SECRET')
         return f(self, *args, **kwargs)
@@ -31,7 +28,7 @@ class BaseHandler(tornado.web.RequestHandler):
     error handler.
     '''
 
-    thread_pool = ThreadPoolExecutor(max_workers=config.get('main', 'max_threads'))
+    thread_pool = ThreadPoolExecutor(max_workers=config.get('main', {}).get('max_threads'))
     http = tornado.httpclient.AsyncHTTPClient()
 
     def write_error(self, status_code, **kwargs):

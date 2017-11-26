@@ -4,7 +4,7 @@ import logging
 from config import config
 
 
-class GPIOHelper():
+class GPIOHelper(object):
     def __init__(self, module='gpio'):
         self.output_pins = config.get(module, {}).get('output_pins')
         self.input_pins = config.get(module, {}).get('input_pins')

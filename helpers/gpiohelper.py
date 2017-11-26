@@ -22,6 +22,7 @@ class GPIOHelper(object):
 
         # Set pin modes
         for pin in self.input_pins:
+            logging.error("INPUT_PINS: {}".format(self.input_pins))
             self.set_pin_input(pin)
 
         for pin in self.output_pins:

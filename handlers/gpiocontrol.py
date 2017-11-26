@@ -43,7 +43,9 @@ class GPIOControlHandler(BaseHandler):
         logging.error("GETTING PIN {}".format(pin))
         (module, mode) = get_pin(pin)
         logging.error("PINMODE: {}, {}".format(module, mode))
-        if module == 'gpio':
+        if not module:
+            raise tornado.web.HTTPError(404, 'PIN_NOT_ASSIGNED')
+        elif module == 'gpio':
             state = gpio.read_pin(pin)
         elif module == 'module_16relay':
             state = module_16relay.read_pin(pin)

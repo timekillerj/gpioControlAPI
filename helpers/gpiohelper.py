@@ -6,14 +6,14 @@ from config import config
 
 class GPIOHelper(object):
     def __init__(self, module='gpio'):
+        logging.info("MODULE: {}".format(module))
         self.output_pins = config.get(module, {}).get('output_pins')
         self.input_pins = config.get(module, {}).get('input_pins')
-        logging.info("MODULE: {}".format(module))
         logging.info("INPUTS: {}".format(self.input_pins))
         logging.info("OUTPUTS: {}".format(self.output_pins))
 
         if not self.output_pins and not self.input_pins:
-            return False
+            return None
 
         if config.get(module, {}).get('mode') == "BCM":
             GPIO.setmode(GPIO.BCM)

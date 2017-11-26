@@ -23,3 +23,4 @@ def get_pin(pin):
             if pin in mylist:
                 logging.error("GETPIN FOUND PIN: {}, {}".format(module, mode))
                 return (module, mode)
+        logging.error("GETPIN REACHED END WITH NO MATCH")

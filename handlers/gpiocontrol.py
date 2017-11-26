@@ -42,6 +42,7 @@ class GPIOControlHandler(BaseHandler):
         pin = int(pin)
         logging.error("GETTING PIN {}".format(pin))
         (module, mode) = get_pin(pin)
+        logging.error("PINMODE: {}, {}".format(module, mode))
         if module == 'gpio':
             state = gpio.read_pin(pin)
         elif module == 'module_16relay':

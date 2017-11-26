@@ -39,6 +39,7 @@ class GPIOControlHandler(BaseHandler):
     @require_shared_secret
     @gen.coroutine
     def get(self, pin):
+        logging.error("GETTING PIN {}".format(pin))
         module, mode = get_pin(pin)
         logging.error('PIN: {}: {}, {}'.format(pin, module, mode))
         self.api_response(pin)

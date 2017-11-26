@@ -3,15 +3,15 @@
     "debug": true,
     "port": 8080,
     "shared_secret": "CHANGEME",
-    "max_threads": 5
+    "max_threads": 5,
+    "mode": "BCM",
   },
   "gpio": {
-    "mode": "BCM",
     "output_pins": [],
     "input_pins": []
   },
   "module_16relay": {
-    "mode": "BCM",
-    "output_pins": []
+    "output_pins": [],
+    "input_pins": []
   }
 }

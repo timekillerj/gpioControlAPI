@@ -25,7 +25,7 @@ def get_pin(pin):
             logging.error("GETPIN PIN TYPE: {}".format(type(pin)))
             for value in mylist:
                 logging.error("GETPIN LIST VALUE TYPE: {}".format(type(value)))
-                if int(pin) in mylist:
+                if pin in mylist:
                     logging.error("GETPIN FOUND PIN: {}, {}".format(module, mode))
                     return (module, mode)
         return (None, None)

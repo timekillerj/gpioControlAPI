@@ -12,8 +12,11 @@ except OSError as e:
 
 def get_pin(pin):
     for module in config:
+        logging.error("GETPIN MODULE: {}".format(module))
         if module == 'main':
             continue
         for mode in ['output_pins', 'input_pins']:
+            logging.error("GETPIN MODE: {}".format(mode))
             if pin in config[module][mode]:
+                logging.error("GETPIN FOUND PIN: {}, {}".format(module, mode))
                 return (module, mode)

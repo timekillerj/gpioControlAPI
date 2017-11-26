@@ -19,6 +19,7 @@ def get_pin(pin):
         for mode in ['output_pins', 'input_pins']:
             logging.error("GETPIN MODE: {}".format(mode))
             mylist = config[module][mode]
+            logging.error("VAR TYPE: {}".format(type(mylist)))
             logging.error("GETPIN MODULE,MODE DATA: {}".format(mylist))
             if pin in mylist:
                 logging.error("GETPIN FOUND PIN: {}, {}".format(module, mode))

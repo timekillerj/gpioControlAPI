@@ -3,9 +3,9 @@ from .base import BaseHandler, require_shared_secret
 import tornado.web
 from tornado import gen
 
-from helpers import GPIOHelper
+from helpers import gpiohelper
 
-gpio = GPIOHelper()
+gpio = gpiohelper.GPIOHelper()
 
 
 class GPIOControlsHandler(BaseHandler):

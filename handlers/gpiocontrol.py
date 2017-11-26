@@ -39,8 +39,16 @@ class GPIOControlHandler(BaseHandler):
     @require_shared_secret
     @gen.coroutine
     def get(self, pin):
+        pin = int(pin)
         logging.error("GETTING PIN {}".format(pin))
-        foo = get_pin(pin)
-        logging.error("FOO: {}".format(foo))
-        # logging.error('PIN: {}: {}, {}'.format(pin, module, mode))
-        self.api_response(pin)
+        (module, mode) = get_pin(pin)
+        if module == 'gpio':
+            state = gpio.read_pin(pin)
+        elif module == 'module_16relay':
+            state = module_16relay.read_pin(pin)
+        response = {
+            "pin": pin,
+            "mode": mode,
+            "state": state
+        }
+        self.api_response(response)

@@ -1,3 +1,6 @@
+import RPi.GPIO as GPIO
+import logging
+
 from helpers import gpiohelper
 
 
@@ -13,3 +16,13 @@ class Module_16Relay(gpiohelper.GPIOHelper):
 
     def set_output_low(self, pin):
         self.set_pin_input(pin)
+
+    def read_pin(self, pin):
+        try:
+            state = GPIO.input(pin)
+        except Exception as e:
+            logging.error("Error reading pin OUTPUT state: {}".format(e))
+        if state:
+            return 0
+        else:
+            return 1

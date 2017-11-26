@@ -60,7 +60,7 @@ class GPIOHelper():
 
     def read_pin(self, pin):
         try:
-            state = GPIO.input(pin)
+            state = GPIO.input(int(pin))
         except Exception as e:
             logging.error("Error reading pin OUTPUT state: {}".format(e))
         return state

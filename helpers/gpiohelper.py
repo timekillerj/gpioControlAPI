@@ -6,8 +6,8 @@ from config import config
 
 class GPIOHelper():
     def __init__(self, module='gpio'):
-        self.output_pins = config.get(module, {}).get('output_pins').split(',')
-        self.input_pins = config.get(module, {}).get('input_pins').split(',')
+        self.output_pins = config.get(module, {}).get('output_pins')
+        self.input_pins = config.get(module, {}).get('input_pins')
 
         if not self.output_pins and not self.input_pins:
             return False

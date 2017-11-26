@@ -10,7 +10,7 @@ from handlers import gpiocontrol
 
 
 config = SafeConfigParser()
-config.read('config.ini')
+config.read('config.json')
 
 
 class HealthHandler(tornado.web.RequestHandler):

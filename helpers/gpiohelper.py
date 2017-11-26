@@ -5,14 +5,18 @@ from ConfigParser import SafeConfigParser
 
 
 config = SafeConfigParser()
-config.read('config.ini')
+config.read('config.json')
 
 
 class GPIOHelper():
-    def __init__(self):
-        self.output_pins = config.get('gpio', 'output_pins').split(',')
-        self.input_pins = config.get('gpio', 'input_pins').split(',')
-        if config.get('gpio', 'mode') == "BCM":
+    def __init__(self, module='gpio'):
+        self.output_pins = config.get(module, 'output_pins').split(',')
+        self.input_pins = config.get(module, 'input_pins').split(',')
+
+        if not self.output_pins and not self.input_pins:
+            return False
+
+        if config.get(module, 'mode') == "BCM":
             GPIO.setmode(GPIO.BCM)
         else:
             GPIO.setmode(GPIO.BOARD)
@@ -64,3 +68,15 @@ class GPIOHelper():
         except Exception as e:
             logging.error("Error reading pin OUTPUT state: {}".format(e))
         return state
+
+    def set_output_high(self, pin):
+        try:
+            GPIO.output(pin, GPIO.HIGH)
+        except Exception as e:
+            logging.error("Error setting output pin {} HIGH: {}".format(pin, e))
+
+    def set_output_low(self, pin):
+        try:
+            GPIO.output(pin, GPIO.LOW)
+        except Exception as e:
+            logging.error("Error setting output pin {} LOW: {}".format(pin, e))

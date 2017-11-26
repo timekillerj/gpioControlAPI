@@ -4,8 +4,10 @@ import tornado.web
 from tornado import gen
 
 from helpers import gpiohelper
+from helpers import module_16relay
 
 gpio = gpiohelper.GPIOHelper()
+module_16relay = module_16relay.Module_16Relay()
 
 
 class GPIOControlsHandler(BaseHandler):
@@ -13,14 +15,23 @@ class GPIOControlsHandler(BaseHandler):
     @gen.coroutine
     def get(self):
         gpio_pins = {}
+        module_16relay_pins = {}
         try:
             # TODO use filters for INPUT/OUTPUT
-            gpio_pins['input_pins'] = gpio.read_input_pins()
-            gpio_pins['output_pins'] = gpio.read_output_pins()
+            if gpio:
+                gpio_pins['input_pins'] = gpio.read_input_pins()
+                gpio_pins['output_pins'] = gpio.read_output_pins()
+            if module_16relay:
+                module_16relay_pins['input_pins'] = module_16relay.read_input_pins()
+                module_16relay_pins['output_pins'] = module_16relay.read_output_pins()
         except Exception as e:
             logging.error("Error reading pin states: {}".format(e))
             raise tornado.web.HTTPError(500, 'Error reading pin states: {}'.format(e))
-        self.api_response(gpio_pins)
+        all_pins = {
+            "gpio": gpio_pins,
+            "module_16relay": module_16relay_pins
+        }
+        self.api_response(all_pins)
 
 
 class GPIOControlHandler(BaseHandler):

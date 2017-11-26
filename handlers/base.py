@@ -5,11 +5,10 @@ import tornado.httpclient
 import tornado.web
 from ConfigParser import SafeConfigParser
 
-# from lib import web_mixins
 from concurrent.futures import ThreadPoolExecutor
 
 config = SafeConfigParser()
-config.read('config.ini')
+config.read('config.json')
 
 
 def require_shared_secret(f):
@@ -25,7 +24,6 @@ def require_shared_secret(f):
     return decorated
 
 
-# class BaseHandler(tornado.web.RequestHandler, web_mixins.ApiMixin):
 class BaseHandler(tornado.web.RequestHandler):
     '''Base request handler.
 

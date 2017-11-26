@@ -1,0 +1,17 @@
+{
+  "main": {
+    "debug": true,
+    "port": 8080,
+    "shared_secret": "CHANGEME",
+    "max_threads": 5
+  },
+  "gpio": {
+    "mode": "BCM",
+    "output_pins": [18],
+    "input_pins": [19]
+  },
+  "module_16relay": {
+    "mode": "BCM",
+    "output_pins": [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+  }
+}

@@ -5,6 +5,7 @@ from tornado import gen
 
 from helpers import gpiohelper
 from helpers import module_16relay
+from config import get_pin
 
 gpio = gpiohelper.GPIOHelper()
 module_16relay = module_16relay.Module_16Relay()
@@ -37,5 +38,7 @@ class GPIOControlsHandler(BaseHandler):
 class GPIOControlHandler(BaseHandler):
     @require_shared_secret
     @gen.coroutine
-    def get(self):
-        pass
+    def get(self, pin):
+        module, mode = get_pin(pin)
+        logging.error('PIN: {}: {}, {}'.format(pin, module, mode))
+        self.api_response(pin)

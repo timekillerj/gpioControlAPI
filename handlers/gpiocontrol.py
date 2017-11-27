@@ -80,12 +80,12 @@ class GPIOControlHandler(BaseHandler):
         if set_mode and set_mode != mode:
             if set_mode == "output":
                 gpio_module.set_pin_output(pin)
-                mode = set_mode
             elif set_mode == "input":
                 gpio_module.set_pin_input(pin)
-                mode = set_mode
             else:
                 raise tornado.web.HTTPError(400, 'INVALID_MODE_VALUE')
+        # Recheck mode
+        (module, mode) = get_pin(pin)
 
         if set_output and mode == 'output':
             if set_output == 'high':

@@ -89,6 +89,7 @@ class GPIOControlHandler(BaseHandler):
 
         if set_output and mode == 'output':
             if set_output == 'high':
+                logging.error('SETTING PIN {} HIGH'.format(pin))
                 gpio_module.set_output_high(pin)
             elif set_output == 'low':
                 gpio_module.set_output_low(pin)

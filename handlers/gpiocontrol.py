@@ -93,7 +93,7 @@ class GPIOControlHandler(BaseHandler):
             elif set_output == 'low':
                 gpio_module.set_output_low(pin)
             else:
-                raise tornado.web.HTTPError('400', 'INVALID_OUTPUT_VALUE')
+                raise tornado.web.HTTPError(400, 'INVALID_OUTPUT_VALUE')
 
             state = gpio_module.read_pin(pin)
             response = {

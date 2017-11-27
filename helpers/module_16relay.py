@@ -17,6 +17,14 @@ class Module_16Relay(gpiohelper.GPIOHelper):
     def set_output_low(self, pin):
         self.set_pin_input(pin)
 
+    def set_pin_input(self, pin):
+        super(Module_16Relay, self).set_pin_input(pin)
+        # Revert pin list assignment
+        if pin in self.input_pins:
+            self.input_pins.remove(pin)
+        if pin not in self.output_pins:
+            self.output_pins.append(pin)
+
     def read_pin(self, pin):
         try:
             state = GPIO.input(pin)

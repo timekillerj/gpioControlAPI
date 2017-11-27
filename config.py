@@ -1,6 +1,11 @@
 import json
 import logging
 
+PIN_MODES = {
+    'input_pins': 'input',
+    'output_pins': 'output',
+}
+
 config = {}
 
 try:
@@ -27,5 +32,5 @@ def get_pin(pin):
                 logging.error("GETPIN LIST VALUE TYPE: {}".format(type(value)))
                 if pin in mylist:
                     logging.error("GETPIN FOUND PIN: {}, {}".format(module, mode))
-                    return (module, mode)
+                    return (module, PIN_MODES[mode])
     return (None, None)

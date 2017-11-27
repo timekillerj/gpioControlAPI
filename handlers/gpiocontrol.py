@@ -70,7 +70,6 @@ class GPIOControlHandler(BaseHandler):
 
         pin = int(pin)
         (module, mode) = get_pin(pin)
-        logging.error("MODULE: {}, MODE: {}".format(module, mode))
         if not module:
             raise tornado.web.HTTPError(404, 'PIN_NOT_ASSIGNED')
         elif module == 'gpio':
@@ -90,7 +89,6 @@ class GPIOControlHandler(BaseHandler):
 
         if set_output and mode == 'output':
             if set_output == 'high':
-                logging.error('SETTING PIN {} HIGH'.format(pin))
                 gpio_module.set_output_high(pin)
             elif set_output == 'low':
                 gpio_module.set_output_low(pin)

@@ -6,11 +6,8 @@ from config import config
 
 class GPIOHelper(object):
     def __init__(self, module='gpio'):
-        logging.error("MODULE: {}".format(module))
         self.output_pins = config.get(module, {}).get('output_pins')
         self.input_pins = config.get(module, {}).get('input_pins')
-        logging.error("INPUTS: {}".format(self.input_pins))
-        logging.error("OUTPUTS: {}".format(self.output_pins))
 
         if not self.output_pins and not self.input_pins:
             return None
@@ -24,7 +21,6 @@ class GPIOHelper(object):
         # Set pin modes
         if self.input_pins:
             for pin in self.input_pins:
-                logging.error("INPUT_PINS: {}".format(self.input_pins))
                 self.set_pin_input(pin)
 
         if self.output_pins:

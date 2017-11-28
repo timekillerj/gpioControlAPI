@@ -3,6 +3,11 @@ import logging
 
 from helpers import gpiohelper
 
+PIN_STATES = {
+    0: "high",
+    1: "low",
+}
+
 
 class Module_16Relay(gpiohelper.GPIOHelper):
     """
@@ -27,10 +32,7 @@ class Module_16Relay(gpiohelper.GPIOHelper):
 
     def read_pin(self, pin):
         try:
-            state = GPIO.input(pin)
+            state = PIN_STATES[GPIO.input(pin)]
         except Exception as e:
             logging.error("Error reading pin OUTPUT state: {}".format(e))
-        if state:
-            return 0
-        else:
-            return 1
+        return state

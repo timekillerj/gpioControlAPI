@@ -57,19 +57,19 @@ class GPIOHelper(object):
         output_pins = {}
         for pin in self.output_pins:
             pin_state = self.read_pin(pin)
-            output_pins["{}_{}".format(self.module, pin)] = PIN_STATES[pin_state]
+            output_pins["{}_{}".format(self.module, pin)] = pin_state
         return output_pins
 
     def read_input_pins(self):
         input_pins = {}
         for pin in self.input_pins:
             pin_state = self.read_pin(pin)
-            input_pins["{}_{}".format(self.module, pin)] = PIN_STATES[pin_state]
+            input_pins["{}_{}".format(self.module, pin)] = pin_state
         return input_pins
 
     def read_pin(self, pin):
         try:
-            state = GPIO.input(pin)
+            state = PIN_STATES[GPIO.input(pin)]
         except Exception as e:
             logging.error("Error reading pin OUTPUT state: {}".format(e))
         return state

@@ -6,7 +6,7 @@ import json
 
 from helpers import gpiohelper
 from helpers import module_16relay
-from config import get_pin
+from config import config, get_pin
 
 gpio = gpiohelper.GPIOHelper()
 module_16relay = module_16relay.Module_16Relay()
@@ -19,12 +19,18 @@ class GPIOControlsHandler(BaseHandler):
         all_pins = {}
         try:
             # TODO use filters for INPUT/OUTPUT
-            if gpio:
-                all_pins['input_pins'] = gpio.read_input_pins()
-                all_pins['output_pins'] = gpio.read_output_pins()
-            if module_16relay:
-                all_pins['input_pins'].update(module_16relay.read_input_pins())
-                all_pins['output_pins'].update(module_16relay.read_output_pins())
+            for module in config:
+                if module == 'main':
+                    continue
+                for pins_group in config[module]:
+                    read_method = getattr(eval(module), 'read_' + pins_group)
+                    all_pins.update(read_method())
+            # if gpio:
+            #    all_pins = gpio.read_input_pins()
+            #    all_pins.update(gpio.read_output_pins())
+            # if module_16relay:
+            #    all_pins.update(module_16relay.read_input_pins())
+            #    all_pins.update(module_16relay.read_output_pins())
         except Exception as e:
             logging.error("Error reading pin states: {}".format(e))
             raise tornado.web.HTTPError(500, 'Error reading pin states: {}'.format(e))

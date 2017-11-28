@@ -23,7 +23,7 @@ class GPIOControlsHandler(BaseHandler):
                 if module == 'main':
                     continue
                 for pins_group in config[module]:
-                    logging.error("PINS_GROUP: {}".format(pins_group))
+                    logging.error("MODULE: {}, PINS_GROUP: {}".format(module, pins_group))
                     read_method = getattr(eval(module), 'read_' + pins_group)
                     all_pins.update(read_method())
             # if gpio:

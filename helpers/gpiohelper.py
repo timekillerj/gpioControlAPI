@@ -19,7 +19,7 @@ class GPIOHelper(object):
             return None
 
         if not GPIO.getmode():
-            if config.get(module, {}).get('mode') == "BCM":
+            if config.get('main', {}).get('mode') == "BCM":
                 GPIO.setmode(GPIO.BCM)
             else:
                 GPIO.setmode(GPIO.BOARD)

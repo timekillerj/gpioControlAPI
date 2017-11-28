@@ -24,6 +24,7 @@ class GPIOHelper(object):
             else:
                 GPIO.setmode(GPIO.BOARD)
 
+        GPIO.setwarnings(False)
         # Set pin modes
         if self.input_pins:
             for pin in self.input_pins:

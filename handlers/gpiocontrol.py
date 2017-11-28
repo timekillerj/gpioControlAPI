@@ -23,15 +23,8 @@ class GPIOControlsHandler(BaseHandler):
                 if module == 'main':
                     continue
                 for pins_group in config[module]:
-                    logging.error("MODULE: {}, PINS_GROUP: {}".format(module, pins_group))
                     read_method = getattr(eval(module), 'read_' + pins_group)
                     all_pins.update(read_method())
-            # if gpio:
-            #    all_pins = gpio.read_input_pins()
-            #    all_pins.update(gpio.read_output_pins())
-            # if module_16relay:
-            #    all_pins.update(module_16relay.read_input_pins())
-            #    all_pins.update(module_16relay.read_output_pins())
         except Exception as e:
             logging.error("Error reading pin states: {}".format(e))
             raise tornado.web.HTTPError(500, 'Error reading pin states: {}'.format(e))

@@ -24,8 +24,8 @@ class GPIOControlsHandler(BaseHandler):
                     continue
                 for pins_group in config[module]:
                     logging.error("MODULE: {}, PINS_GROUP: {}".format(module, pins_group))
-                    # read_method = getattr(eval(module), 'read_' + pins_group)
-                    # all_pins.update(read_method())
+                    read_method = getattr(eval(module), 'read_' + pins_group)
+                    all_pins.update(read_method())
             # if gpio:
             #    all_pins = gpio.read_input_pins()
             #    all_pins.update(gpio.read_output_pins())

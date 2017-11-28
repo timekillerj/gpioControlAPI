@@ -10,8 +10,9 @@ PIN_STATES = {
 
 
 class GPIOHelper(object):
-    def __init__(self, module='gpio'):
+    def __init__(self, module='gpio', pin_states=PIN_STATES):
         self.module = module
+        self.pin_states = pin_states
         self.output_pins = config.get(module, {}).get('output_pins')
         self.input_pins = config.get(module, {}).get('input_pins')
 
@@ -57,14 +58,14 @@ class GPIOHelper(object):
         output_pins = {}
         for pin in self.output_pins:
             pin_state = self.read_pin(pin)
-            output_pins["{}_{}".format(self.module, pin)] = PIN_STATES[pin_state]
+            output_pins["{}_{}".format(self.module, pin)] = self.pin_states[pin_state]
         return output_pins
 
     def read_input_pins(self):
         input_pins = {}
         for pin in self.input_pins:
             pin_state = self.read_pin(pin)
-            input_pins["{}_{}".format(self.module, pin)] = PIN_STATES[pin_state]
+            input_pins["{}_{}".format(self.module, pin)] = self.pin_states[pin_state]
         return input_pins
 
     def read_pin(self, pin):

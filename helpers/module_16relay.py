@@ -11,7 +11,7 @@ class Module_16Relay(gpiohelper.GPIOHelper):
     TODO: Document quirks of relay board
     """
     def __init__(self):
-        super(Module_16Relay, self).__init__(module='module_16relay')
+        super(Module_16Relay, self).__init__(module='module_16relay', pin_states=PIN_STATES)
 
     def set_output_high(self, pin):
         self.set_pin_output(pin)

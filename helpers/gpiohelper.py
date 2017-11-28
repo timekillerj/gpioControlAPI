@@ -6,6 +6,7 @@ from config import config
 
 class GPIOHelper(object):
     def __init__(self, module='gpio'):
+        self.module = module
         self.output_pins = config.get(module, {}).get('output_pins')
         self.input_pins = config.get(module, {}).get('input_pins')
 
@@ -51,14 +52,14 @@ class GPIOHelper(object):
         output_pins = {}
         for pin in self.output_pins:
             pin_state = self.read_pin(pin)
-            output_pins[pin] = pin_state
+            output_pins["{}_{}".format(self.module, pin)] = pin_state
         return output_pins
 
     def read_input_pins(self):
         input_pins = {}
         for pin in self.input_pins:
             pin_state = self.read_pin(pin)
-            input_pins[pin] = pin_state
+            input_pins["{}_{}".format(self.module, pin)] = pin_state
         return input_pins
 
     def read_pin(self, pin):

@@ -3,6 +3,11 @@ import logging
 
 from config import config
 
+PIN_STATES = {
+    0: "low",
+    1: "high",
+}
+
 
 class GPIOHelper(object):
     def __init__(self, module='gpio'):
@@ -52,14 +57,14 @@ class GPIOHelper(object):
         output_pins = {}
         for pin in self.output_pins:
             pin_state = self.read_pin(pin)
-            output_pins["{}_{}".format(self.module, pin)] = pin_state
+            output_pins["{}_{}".format(self.module, pin)] = PIN_STATES[pin_state]
         return output_pins
 
     def read_input_pins(self):
         input_pins = {}
         for pin in self.input_pins:
             pin_state = self.read_pin(pin)
-            input_pins["{}_{}".format(self.module, pin)] = pin_state
+            input_pins["{}_{}".format(self.module, pin)] = PIN_STATES[pin_state]
         return input_pins
 
     def read_pin(self, pin):

@@ -1,7 +1,9 @@
-import RPi.GPIO as GPIO
-import logging
-
 from helpers import gpiohelper
+
+PIN_STATES = {
+    0: "on",
+    1: "off",
+}
 
 
 class Module_16Relay(gpiohelper.GPIOHelper):
@@ -24,13 +26,3 @@ class Module_16Relay(gpiohelper.GPIOHelper):
             self.input_pins.remove(pin)
         if pin not in self.output_pins:
             self.output_pins.append(pin)
-
-    def read_pin(self, pin):
-        try:
-            state = GPIO.input(pin)
-        except Exception as e:
-            logging.error("Error reading pin OUTPUT state: {}".format(e))
-        if state:
-            return 0
-        else:
-            return 1

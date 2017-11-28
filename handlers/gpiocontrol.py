@@ -44,9 +44,10 @@ class GPIOControlHandler(BaseHandler):
         elif module == 'module_16relay':
             state = module_16relay.read_pin(pin)
         response = {
-            "pin": pin,
-            "mode": mode,
-            "state": state
+            pin: {
+                "mode": mode,
+                "state": state
+            }
         }
         self.api_response(response)
 
@@ -92,8 +93,9 @@ class GPIOControlHandler(BaseHandler):
 
             state = gpio_module.read_pin(pin)
             response = {
-                "pin": pin,
-                "mode": mode,
-                "state": state
+                pin: {
+                    "mode": mode,
+                    "state": state
+                }
             }
             self.api_response(response)
